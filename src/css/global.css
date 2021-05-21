@@ -1,0 +1,22 @@
+:root {
+    --background-primary: transparent;
+    --background-primary-alt: #36393ff0;
+    --background-secondary: #2f313650;
+    --background-secondary-chat: #2f3136a0;
+    --background-secondary-alt: #292b2f00;
+    --background-tertiary: #20222570;
+    --background-logo: #36393fa0;
+    --deprecated-card-bg: #36393f4c;
+    --deprecated-store-bg: #36393f00;
+    --background-attachments: #2f313640;
+    --background-search-bar: #202225a0;
+    --background-switcher: #2f3136ff;
+    --background-chatbox: #20222550;
+    --background-lights-out: #000;
+    --background-pinned: #2f3136ff;
+    --background-profile-expand: #2f3136ff;
+    --background-emoji: #2f3136ff;
+    --text-lights-out: #f0f0f0;
+    --background-titlebar: #2f313650;
+    --scrollbar-auto-thumb: #20222550;
+}
