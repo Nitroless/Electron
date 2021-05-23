@@ -20,6 +20,7 @@
       <div id="searchBox">
         <input type="search" id="searchInput" class="inputTextField" placeholder="Search for emojis..." />
       </div>
+      <div id="copyFloat">Copied!</div>
       <div id="content">
         <div id="sidebar">
             <div id="hamburgerMenu-title">Menu</div>
@@ -47,10 +48,25 @@
         <div id="sidebarContent"></div>
       </div>
     </div>
+    <script src="libs/clipboard.js"></script>
     <script src="libs/eventHandler.js"></script>
+    <script src="libs/domMaker.js"></script>
     <script src="libs/localstore.js"></script>
+    <script>
+      localstore.init({
+            storageName: "NitrolessStorage",
+            extraStorage: {
+                addedRepos: [
+                    "https://nitroless.monotrix.xyz/",
+                    "https://thealphastream.github.io/emojis/"
+                ]
+            }
+        });
+    </script>
     <script src="js/electronScripts/titlebar.js"></script>
     <script src="js/electronScripts/hoverEffect.js"></script>
+    <script src="js/sidebarContents/home.js"></script>
+    <script src="js/contentFill.js"></script>
     <script src="js/allEvents.js"></script>
     <script src="js/main.js"></script>
   </body>

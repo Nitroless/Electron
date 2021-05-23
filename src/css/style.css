@@ -97,3 +97,7 @@
 #sidebar .sidebar-btn .sidebar-btn-title {
   pointer-events: none;
 }
+
+#content #sidebarContent {
+  margin-left: 56px;
+}
