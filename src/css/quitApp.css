@@ -1,9 +1,5 @@
 body {
-    background-color: var(--background-primary-alt);
-    color: #fff;
-    margin: 0;
     padding: 20px;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 #quitContainer{
@@ -37,14 +33,20 @@ body {
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--background-switcher);
+    background-color: var(--background-btns);
     width: 100px;
     height: 40px;
     -webkit-app-region: no-drag;
-    box-shadow: 0px 5px 5px var(--background-pinned), 0px 10px 20px var(--background-pinned);
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px #0004;
 }
 
 #quitContainer .quitBtns div:hover {
     cursor: pointer;
-    background-color: var(--background-secondary-chat);
+    background-color: var(--background-btns-hover);
+    transform: scale(1.1);
+}
+
+#quitContainer .quitBtns div:active {
+    transform: scale(1);
 }

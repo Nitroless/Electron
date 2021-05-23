@@ -8,4 +8,5 @@ new (require("windowbar"))({
     draggable: false
 })
 .on("minimize", () => electron.ipcRenderer.send("minimize"))
+.on("close", () => electron.ipcRenderer.send("close"))
 .appendTo(document.getElementById("windowbar"));

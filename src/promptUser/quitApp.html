@@ -14,10 +14,11 @@
             Are you sure you want to Quit?
         </div>
         <div class="quitBtns">
-            <div id="quitYes">Yes</div>
-            <div id="quitNo">No</div>
+            <div id="quitYes" class="quit-btns">Yes</div>
+            <div id="quitNo" class="quit-btns">No</div>
         </div>
     </div>
+    <script src="../js/electronScripts/hoverEffect.js"></script>
     <script>
         const electron = require("electron");
         document.getElementsByClassName("quitBtns")[0].addEventListener("click", (e) => {

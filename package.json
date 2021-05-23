@@ -1,8 +1,8 @@
 {
-  "name": "nitroless",
+  "name": "io.github.nitroless",
   "productName": "nitroless",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "A Project where you can use any custom emoji on Discord servers without Nitro! Just tap the emoji and paste it in the discord chat.",
   "main": "src/index.js",
   "scripts": {
     "start": "electron-forge start",
@@ -12,8 +12,8 @@
     "lint": "echo \"No linting configured\""
   },
   "keywords": [],
-  "author": "paras",
-  "license": "MIT",
+  "author": "Paras Khanchandani",
+  "license": "",
   "config": {
     "forge": {
       "packagerConfig": {},
@@ -44,6 +44,7 @@
   "dependencies": {
     "electron-squirrel-startup": "^1.0.0",
     "electron-tray-window": "^1.2.5",
+    "fluent-reveal-effect": "^2.0.8",
     "glasstron": "0.0.7",
     "windowbar": "^1.7.4"
   },

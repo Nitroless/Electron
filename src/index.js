@@ -22,15 +22,20 @@ electron.app.on("ready", () => {
 			{ 
 				label: 'Show App', 
 				click: function(){
-					mainWindow.show();
+					window.show();
 				}
 			},
 			{ 
 				label: 'Quit', 
 				click: function(){
+					let display = electron.screen.getPrimaryDisplay();
+    				let width = display.bounds.width;
+					let height = display.bounds.height;
 					const win = new glasstron.BrowserWindow({
 						width: 300,
 						height: 200,
+						x: width - 400,
+						y: height - 250,
 						backgroundColor: "#00000000",
 						title: "Quit Nitroless?",
 						autoHideMenuBar: true,
@@ -46,11 +51,10 @@ electron.app.on("ready", () => {
 						}
 					});
 					win.webContents.loadURL(`file://${__dirname}/promptUser/quitApp.html`);
-					//electron.app.exit(0);
 				}
 			}
 		])
-		tray.setToolTip('This is my application.')
+		tray.setToolTip('Nitroless')
 		tray.setContextMenu(contextMenu)
 	}, 1000);
 });

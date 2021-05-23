@@ -1,0 +1,98 @@
+#windowbar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: auto;
+    padding: 10px;
+    -webkit-app-region: no-drag;
+}
+  
+#windowbar #hamburgerMenu {
+    margin-top: 6px;
+    margin-left: 10px;
+    width: 20px;
+    height: 20px;
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+    -webkit-transition: .5s ease-in-out;
+    -moz-transition: .5s ease-in-out;
+    -o-transition: .5s ease-in-out;
+    transition: .5s ease-in-out;
+    -webkit-app-region: drag;
+    opacity: 0.6;
+    z-index: 5;
+}
+
+#windowbar #hamburgerMenu:hover {
+    cursor: pointer;
+}
+  
+#windowbar #hamburgerMenu span {
+    display: block;
+    position: relative;
+    height: 2px;
+    width: 100%;
+    background: #ffffff;
+    border-radius: 9px;
+    opacity: 1;
+    left: 0;
+    pointer-events: none;
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+    -webkit-transition: .25s ease-in-out;
+    -moz-transition: .25s ease-in-out;
+    -o-transition: .25s ease-in-out;
+    transition: .25s ease-in-out;
+}
+  
+#windowbar #hamburgerMenu span:nth-child(1) {
+    top: 0px;
+}
+  
+#windowbar #hamburgerMenu span:nth-child(2) {
+    top: 4px;
+}
+  
+#windowbar #hamburgerMenu span:nth-child(3) {
+    top: 8px;
+}
+  
+#windowbar .windowbar.wb-win {
+    display: flex;
+    margin-left: 20px;
+    justify-content: space-between;
+    width: 100%;
+    z-index: -1;
+}
+  
+#windowbar .windowbar-title {
+    position: relative;
+    top: unset;
+    left: unset;
+    transform: unset;
+    font-family: UniSans;
+    font-size: 25px;
+    margin-left: auto;
+    margin-right: auto;
+}
+  
+#windowbar .windowbar-controls {
+    position: unset;
+    display: flex;
+    top: unset;
+    left: unset;
+    -webkit-app-region: no-drag;
+}
+  
+.windowbar.wb-win .windowbar-minimize, .windowbar.wb-win .windowbar-maximize, .windowbar.wb-win .windowbar-close {
+    float: unset;
+    margin: 0;
+}
+  
+#windowbar .windowbar-controls .windowbar-maximize, #windowbar .windowbar-controls .windowbar-close {
+    display: none;
+}
