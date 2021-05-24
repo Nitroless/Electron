@@ -28,15 +28,17 @@ var home = {
             <div class="sidebar-btn-title">${repo.name}</div>
             `
         });
-
-        htmlContainer.addEventListener("click", (e) => {
-            let scrollTo = document.getElementById(e.target.id.substring(0, e.target.id.length - 10));
-            scrollTo.parentNode.scroll({
-                top: scrollTo.offsetTop - scrollTo.parentNode.offsetTop,
-                behaviour: "smooth"
-            })
+        eventHandler.addEvent(htmlContainer, {
+            event: "click",
+            label: "sidebarRepoEvents",
+            callback: (e) => {
+                let scrollTo = document.getElementById(e.target.id.substring(0, e.target.id.length - 10));
+                scrollTo.parentNode.scroll({
+                    top: scrollTo.offsetTop - scrollTo.parentNode.offsetTop,
+                    behaviour: "smooth"
+                });
+            }
         });
-
         return htmlContainer;
     },
     displayEmotes: function(repo) {
@@ -70,16 +72,20 @@ var home = {
                 </div>
             `
         });
-        htmlContainer.addEventListener("click", (e) => {
-            if(e.target.className !== "menuButton mi mi-ButtonMenu" && e.target.className !== "emoteContainer" && e.target.className !== "emoteImage" && e.target.className !== "repoEmotes") {
-                document.getElementById(repo.id + "Chevron").classList.toggle("closed");
-                let section = document.getElementById(repo.id + "Emotes");
-                let isCollapsed = section.getAttribute('data-collapsed') === 'true';
-                if(isCollapsed) {
-                    home.expandSection(section);
-                    section.setAttribute('data-collapsed', 'false');
-                } else {
-                    home.collapseSection(section);
+        eventHandler.addEvent(htmlContainer, {
+            event: "click",
+            label: "repoHeaderEvents",
+            callback: (e) => {
+                if(e.target.className !== "menuButton mi mi-ButtonMenu" && e.target.className !== "emoteContainer" && e.target.className !== "emoteImage" && e.target.className !== "repoEmotes") {
+                    document.getElementById(repo.id + "Chevron").classList.toggle("closed");
+                    let section = document.getElementById(repo.id + "Emotes");
+                    let isCollapsed = section.getAttribute('data-collapsed') === 'true';
+                    if(isCollapsed) {
+                        home.expandSection(section);
+                        section.setAttribute('data-collapsed', 'false');
+                    } else {
+                        home.collapseSection(section);
+                    }
                 }
             }
         });

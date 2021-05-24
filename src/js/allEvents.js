@@ -10,12 +10,28 @@ var nitrolessEvents = {
             label: "sidebarEvents",
             callback: (e) => {
                 if(e.target.classList.contains("sidebar-btn")) {
+                    let sidebarBtns = document.getElementsByClassName("sidebar-btn");
+                    for(let i = 0; i < sidebarBtns.length; i++) {
+                        if(sidebarBtns[i].classList.contains("active")) {
+                            sidebarBtns[i].classList.remove("active");
+                        }
+                    }
+                    e.target.classList.add("active");
                     switch(e.target.id) {
                         case "reloadBtn":
+                            eventHandler.removeAllEvents();
                             location.href = location.href;
                             break;
+                        case "homeBtn":
+                            eventHandler.removeAllEvents();
+                            nitrolessEvents.init();
+                            home.init();
+                            e.target.style.backgroundImage = "none";
+                            break;
                         case "aboutBtn":
-                            
+                            eventHandler.removeAllEvents();
+                            nitrolessEvents.init();
+                            about.init();
                             break;
                     }
                 }
