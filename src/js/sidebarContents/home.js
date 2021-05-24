@@ -143,6 +143,16 @@ var home = {
         for(let i = 0; i < home.repoEmotes.length; i++) {
             document.getElementById("addedRepos").appendChild(home.displaySidebarRepo(home.repoEmotes[i]));
         }
+        FluentRevealEffect.applyEffect(".repoDetail", {
+            clickEffect: true,
+            lightColor: "rgba(255,255,255,0.2)",
+            gradientSize: 200
+        });
+        FluentRevealEffect.applyEffect(".sidebar-btn", {
+            clickEffect: true,
+            lightColor: "rgba(255,255,255,0.2)",
+            gradientSize: 150
+        });
         let clipboard = new ClipboardJS('.emoteContainer');
         clipboard.on('success', this.copySuccess);
         clipboard.on('error', this.copyFailure);
