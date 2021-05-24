@@ -64,7 +64,7 @@ var home = {
         }, 1000);
     },
     copyFailure: function(e) {
-        alert('Couldn\'t copy ' + e.trigger.id);
+        alert('Couldn\'t copy ' + e.trigger);
     },
     dynamicSorting: function(property) {
         let sortOrder = 1;
@@ -89,7 +89,7 @@ var home = {
         for(let i = 0; i < home.repoEmotes.length; i++) {
             document.getElementById("sidebarContent").appendChild(home.displayEmotes(home.repoEmotes[i]));
         }
-        let clipboard = new ClipboardJS('.repoEmotes');
+        let clipboard = new ClipboardJS('.emoteContainer');
         clipboard.on('success', this.copySuccess);
         clipboard.on('error', this.copyFailure);
     }

@@ -1,7 +1,7 @@
 {
   "name": "io.github.nitroless",
-  "productName": "nitroless",
-  "version": "1.0.0",
+  "productName": "Nitroless",
+  "version": "1.0.0-alpha",
   "description": "A Project where you can use any custom emoji on Discord servers without Nitro! Just tap the emoji and paste it in the discord chat.",
   "main": "src/index.js",
   "scripts": {
@@ -9,7 +9,24 @@
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
-    "lint": "echo \"No linting configured\""
+    "lint": "echo \"No linting configured\"",
+    "build-installer": "electron-builder"
+  },
+  "build": {
+    "appId": "io.github.nitroless",
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "src/icon.ico"
+    },
+    "nsis": {
+      "installerIcon": "src/icon.ico",
+      "uninstallerIcon": "src/icon.ico",
+      "uninstallDisplayName": "Nitroless",
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
   },
   "keywords": [],
   "author": "Paras Khanchandani",
@@ -55,6 +72,7 @@
     "@electron-forge/maker-rpm": "^6.0.0-beta.55",
     "@electron-forge/maker-squirrel": "^6.0.0-beta.55",
     "@electron-forge/maker-zip": "^6.0.0-beta.55",
-    "electron": "12.0.9"
+    "electron": "12.0.9",
+    "electron-builder": "^22.10.5"
   }
 }

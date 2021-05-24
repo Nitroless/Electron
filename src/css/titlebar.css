@@ -1,64 +1,13 @@
 #windowbar {
+    position: fixed;
+    top: 6px;
+    width: 95%;
     display: flex;
     flex-direction: row;
     align-items: center;
     height: auto;
     padding: 10px;
     -webkit-app-region: no-drag;
-}
-  
-#windowbar #hamburgerMenu {
-    margin-top: 6px;
-    margin-left: 10px;
-    width: 20px;
-    height: 20px;
-    -webkit-transform: rotate(0deg);
-    -moz-transform: rotate(0deg);
-    -o-transform: rotate(0deg);
-    transform: rotate(0deg);
-    -webkit-transition: .5s ease-in-out;
-    -moz-transition: .5s ease-in-out;
-    -o-transition: .5s ease-in-out;
-    transition: .5s ease-in-out;
-    -webkit-app-region: drag;
-    opacity: 0.6;
-    z-index: 5;
-}
-
-#windowbar #hamburgerMenu:hover {
-    cursor: pointer;
-}
-  
-#windowbar #hamburgerMenu span {
-    display: block;
-    position: relative;
-    height: 2px;
-    width: 100%;
-    background: #ffffff;
-    border-radius: 9px;
-    opacity: 1;
-    left: 0;
-    pointer-events: none;
-    -webkit-transform: rotate(0deg);
-    -moz-transform: rotate(0deg);
-    -o-transform: rotate(0deg);
-    transform: rotate(0deg);
-    -webkit-transition: .25s ease-in-out;
-    -moz-transition: .25s ease-in-out;
-    -o-transition: .25s ease-in-out;
-    transition: .25s ease-in-out;
-}
-  
-#windowbar #hamburgerMenu span:nth-child(1) {
-    top: 0px;
-}
-  
-#windowbar #hamburgerMenu span:nth-child(2) {
-    top: 4px;
-}
-  
-#windowbar #hamburgerMenu span:nth-child(3) {
-    top: 8px;
 }
   
 #windowbar .windowbar.wb-win {

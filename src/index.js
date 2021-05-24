@@ -6,11 +6,11 @@ const trayWindow = require("electron-tray-window");
 const path = require("path");
 
 electron.app.commandLine.appendSwitch("enable-transparent-visuals");
-let tray = null;
+electron.app.commandLine.appendSwitch("disable-site-isolation-trials");
 
 electron.app.on("ready", () => {
 	let window = createWindow();
-	let tray = new electron.Tray(path.join(__dirname, 'app-icon.jpg'));
+	let tray = new electron.Tray(path.join(__dirname, 'tray-icon.png'));
 	setTimeout(() => {
 		trayWindow.setOptions({
 			tray: tray,
@@ -45,6 +45,7 @@ electron.app.on("ready", () => {
 						blurType: "acrylic",
 						blurGnomeSigma: 100,
 						vibrancy: "fullscreen-ui",
+						icon: __dirname + '/app-icon.jpg',
 						webPreferences: {
 							nodeIntegration: true,
 							contextIsolation: false
@@ -72,9 +73,11 @@ function createWindow(){
 		blurType: "acrylic",
 		blurGnomeSigma: 100,
 		vibrancy: "fullscreen-ui",
+		icon: __dirname + '/app-icon.jpg',
 		webPreferences: {
 			nodeIntegration: true,
-			contextIsolation: false
+			contextIsolation: false,
+			webSecurity: false
 		}
 	});
 	
