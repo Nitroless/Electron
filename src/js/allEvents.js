@@ -1,5 +1,9 @@
 var nitrolessEvents = {
     sidebar: document.getElementById("sidebar"),
+    searchbar: document.getElementById("searchInput"),
+    loadSearchEvents: function() {
+        
+    },
     loadSidebarEvents: function() {
         eventHandler.addEvent(this.sidebar, {
             event: "click",

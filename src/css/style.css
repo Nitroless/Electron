@@ -34,7 +34,6 @@
   align-items: center;
   padding: 18px;
   transition: 250ms ease;
-  border: 0;
 }
 
 #content #sidebar .sidebar-btn:hover {
@@ -51,6 +50,22 @@
   margin-right: 25px;
   font-size: 20px;
   pointer-events: none;
+}
+
+#sidebar #addedRepos {
+  opacity: 0;
+  transition: 250ms ease;
+}
+
+#sidebar:hover #addedRepos {
+  opacity: 1;
+  transition-delay: 700ms;
+}
+
+#addedRepos .sidebar-btn .sidebar-btn-icon {
+  background-size: contain;
+  width: 25px;
+  height: 25px;
 }
 
 #sidebar .sidebar-btn.active .sidebar-btn-icon, #sidebar .sidebar-btn.active .sidebar-btn-title  {
@@ -81,11 +96,14 @@
     top: 6px;
 }
 
-#reloadBtn {
-  margin-top: 250px;
+#addedRepos {
+  height: 256px;
+  overflow-Y: auto;
+  overflow-x: hidden;
 }
 
 #content #sidebarContent {
+  scroll-behavior: smooth;
   position: absolute;
   width: calc(90% - 18px);
   height: 80%;
@@ -159,11 +177,22 @@
   border-radius: 10px;
 }
 
+.repoDetail .repoInfo .mi-ChevronDown {
+  transition: 250ms ease;
+}
+
+.repoDetail .repoInfo .mi-ChevronDown.closed {
+  transform: rotate(-90deg);
+}
+
 #sidebarContent .repoContainer .repoEmotes {
-  padding: 10px;
+  margin-top: 10px;
   display: flex;
   flex-wrap: wrap;
   margin-left: 20px;
+  transition: 250ms ease;
+  height:auto;
+  overflow: hidden;
 }
 
 .repoContainer .repoEmotes .emoteContainer {

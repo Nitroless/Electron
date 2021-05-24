@@ -46,6 +46,7 @@ electron.app.on("ready", () => {
 						blurGnomeSigma: 100,
 						vibrancy: "fullscreen-ui",
 						icon: __dirname + '/app-icon.jpg',
+						skipTaskbar: true,
 						webPreferences: {
 							nodeIntegration: true,
 							contextIsolation: false
@@ -74,6 +75,7 @@ function createWindow(){
 		blurGnomeSigma: 100,
 		vibrancy: "fullscreen-ui",
 		icon: __dirname + '/app-icon.jpg',
+		skipTaskbar: true,
 		webPreferences: {
 			nodeIntegration: true,
 			contextIsolation: false,
