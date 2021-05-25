@@ -24,10 +24,6 @@
   left: 63px;
 }
 
-#sidebar #hamburgerMenu-title:hover {
-  cursor: context-menu;
-}
-
 #content #sidebar .sidebar-btn {
   display: flex;
   justify-content: flex-start;
@@ -37,7 +33,6 @@
 }
 
 #content #sidebar .sidebar-btn:hover {
-  background-color: var(--background-btns-hover);
   cursor: pointer;
   transform: scale(1.1);
 }
@@ -111,14 +106,18 @@
   overflow-x: hidden;
   top: 120px;
   margin-left: 56px;
+  mask-image: linear-gradient(to top, transparent, black), linear-gradient(to left, transparent 5px, black 5px);
   -webkit-mask-image: linear-gradient(to top, transparent, black), linear-gradient(to left, transparent 5px, black 5px);
+  mask-size: 100% 20000px;
   -webkit-mask-size: 100% 20000px;
+  mask-position: left bottom;
   -webkit-mask-position: left bottom;
   transition: mask-position 0.3s, -webkit-mask-position 0.3s;
 }
 
 #content #sidebarContent:hover {
   transition-delay: 500ms;
+  mask-position: left top;
   -webkit-mask-position: left top;
 }
 
@@ -138,11 +137,10 @@
   justify-content: space-between;
   transition: 250ms ease;
   padding: 10px;
-  border-radius: 10px
+  border-radius: 10px;
 }
 
 #sidebarContent .repoContainer .repoDetail:hover {
-  background-color: var(--background-btns-hover);
   cursor: pointer;
 }
 
@@ -156,6 +154,7 @@
 
 .repoContainer .repoDetail .repoInfo {
   font-size: 12px;
+  pointer-events: none;
 }
 
 .repoDetail .repoInfo .repoInfoDetail {
@@ -168,13 +167,9 @@
 }
 
 .repoInfo .repoInfoDetail .repoURL  {
-  width: 230px;
+  width: 220px;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.repoDetail:hover .repoInfo .repoInfoDetail .repoURL {
-  width: 205px;
 }
 
 .repoDetail .repoInfo .repoInfoIcon {
@@ -197,7 +192,7 @@
   transform: rotate(-90deg);
 }
 
-#sidebarContent .repoContainer .repoEmotes {
+#sidebarContent .repoContainer .repoEmotes, #mostUsedEmotes {
   margin-top: 10px;
   display: flex;
   flex-wrap: wrap;
@@ -207,22 +202,22 @@
   overflow: hidden;
 }
 
-.repoContainer .repoEmotes .emoteContainer {
+.emoteContainer {
   margin-right: 10px;
   margin-bottom: 10px;
   transition: 250ms ease;
 }
 
-.repoContainer .repoEmotes .emoteContainer:hover {
+.emoteContainer:hover {
   transform: scale(1.2);
   cursor: pointer;
 }
 
-.repoContainer .repoEmotes .emoteContainer:active {
+.emoteContainer:active {
   transform: scale(1);
 }
 
-.repoEmotes .emoteContainer img {
+.emoteContainer img {
   width: 35px;
   border-radius: 10px;
   pointer-events: none;
@@ -235,25 +230,30 @@
   padding: 10px;
   transition: 250ms ease;
   width: 90%;
+  border-radius: 10px;
 }
 
 #sidebarContent .aboutContainer:hover {
-  background-color: var(--background-btns-hover);
   cursor: pointer;
 }
 
-#sidebarContent #Github, #sidebarContent #ParasKCD {
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+#sidebarContent #ParasKCD {
+  margin-top: 40px;
 }
 
-#sidebarContent #Twitter, #sidebarContent #Bypass {
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-} 
-
-#sidebarContent #ParasKCD {
+#sidebarContent #Github {
   margin-top: 20px;
+}
+
+#sidebarContent #Github:before {
+  content: "About Nitroless"!important;
+}
+
+#sidebarContent #ParasKCD:before, #sidebarContent #Github:before {
+  content: "Our Team";
+  position: absolute;
+  margin-top: -80px;
+  opacity: 0.4;
 }
 
 #sidebarContent #Bypass {
@@ -262,8 +262,8 @@
 
 #sidebarContent .aboutContainer .aboutImage {
   margin-right: 10px;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   background-size: cover;
   border-radius: 10px;
   pointer-events: none;
@@ -272,4 +272,84 @@
 .aboutContainer .aboutSubtitle {
   font-size: 12px;
   pointer-events: none;
+}
+
+#loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -120%);
+  padding-top: 100px;
+  width: 40px;
+  margin: auto;
+}
+
+#loading .loadingCircle {
+  position: absolute;
+  width: 38px;
+  height: 38px;
+  opacity: 0;
+  transform: rotate(225deg);
+  animation-iteration-count: infinite;
+  animation-name: orbit;
+  animation-duration: 5.5s;
+}
+
+#loading .loadingCircle:after {
+  content: "";
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 5px;
+  background: #fffa;
+  /* Pick a color */
+}
+
+#loading .loadingCircle:nth-child(2) {
+  animation-delay: 240ms;
+}
+#loading .loadingCircle:nth-child(3) {
+  animation-delay: 480ms;
+}
+#loading .loadingCircle:nth-child(4) {
+  animation-delay: 720ms;
+}
+#loading .loadingCircle:nth-child(5) {
+  animation-delay: 960ms;
+}
+@keyframes orbit {
+  0% {
+    transform: rotate(225deg);
+    opacity: 1;
+    animation-timing-function: ease-out;
+  }
+  7% {
+    transform: rotate(345deg);
+    animation-timing-function: linear;
+  }
+  30% {
+    transform: rotate(455deg);
+    animation-timing-function: ease-in-out;
+  }
+  39% {
+    transform: rotate(690deg);
+    animation-timing-function: linear;
+  }
+  70% {
+    transform: rotate(815deg);
+    opacity: 1;
+    animation-timing-function: ease-out;
+  }
+  75% {
+    transform: rotate(945deg);
+    animation-timing-function: ease-out;
+  }
+  76% {
+    transform: rotate(945deg);
+    opacity: 0;
+  }
+  100% {
+    transform: rotate(945deg);
+    opacity: 0;
+  }
 }

@@ -1,29 +1,6 @@
 /* 
 Inspired by junesiphone's jstorage.js
 Script by Paras Khanchandani https://twitter.com/ParasKCD
-
-#Usage:-
-
-- Initialization:
-localstore.init({
-    storageName: //some name for storage
-});
-
-- Adding a Value:
-localstore.addValue('someValueName', 'value');
-
-- Removing a Value:
-localstore.removeValue('someValueName');
-
-- XenHTML specific
-    - Adding an app:
-    localstore.addApp('arrayName', 'app');
-
-    - Removing an app:
-    localstore.removeApp('arrayName', 'app');
-
-    - Replacing an app:
-    localstore.replaceApp('arrayName', 'oldApp', 'newApp');
 */
 
 var localstore = {
@@ -44,16 +21,16 @@ var localstore = {
         }
         localStorage.setItem(this.storageName, JSON.stringify(storage));
     },
-    addApp: function(arrayName, app) {
+    addRepo: function(arrayName, repo) {
         if(localstore[arrayName]) {
-            if(localstore[arrayName].indexOf(app) > -1) {
-                alert('App already placed');
+            if(localstore[arrayName].indexOf(repo) > -1) {
+                alert('Repo already added');
                 return;
             } else {
-                localstore[arrayName].push(app);
+                localstore[arrayName].push(repo);
             }
         } else {
-            localstore[arrayName] = [app];
+            localstore[arrayName] = [repo];
         }
         localstore.storageData.push(arrayName);
         this.save();
@@ -69,8 +46,8 @@ var localstore = {
             this.save();
         }
     },
-    removeApp: function(arrayName, app) {
-        let index = localstore[arrayName].indexOf(app);
+    removeRepo: function(arrayName, repo) {
+        let index = localstore[arrayName].indexOf(repo);
         localstore[arrayName].splice(index, 1);
         this.save();
         if(localstore[arrayName].length == 0) {
@@ -82,6 +59,25 @@ var localstore = {
         let indexB = this[arrayName].indexOf(appB);
         this[arrayName][indexA] = appB;
         this[arrayName][indexB] = appA;
+        this.save();
+    },
+    moveValueToFirstIndex: function(arrayName, value){
+        old_index = this[arrayName].indexOf(value);
+        if (0 >= arrayName.length) {
+            var k = 0 - arrayName.length + 1;
+            while (k--) {
+                localstore[arrayName].push(undefined);
+            }
+        }
+        localstore[arrayName].splice(0, 0, localstore[arrayName].splice(old_index, 1)[0]);
+    },
+    addArrayValue: function(arrayName, value) {
+        if(this[arrayName]) {
+            localstore[arrayName].push(value);
+        } else {
+            localstore[arrayName] = [value];
+        }
+        localstore.storageData.push(arrayName);
         this.save();
     },
     addValue: function(name, value) {

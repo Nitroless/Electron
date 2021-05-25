@@ -8,6 +8,8 @@ const path = require("path");
 electron.app.commandLine.appendSwitch("enable-transparent-visuals");
 electron.app.commandLine.appendSwitch("disable-site-isolation-trials");
 
+require('events').defaultMaxListeners = 15;
+
 electron.app.on("ready", () => {
 	let window = createWindow();
 	let tray = new electron.Tray(path.join(__dirname, 'tray-icon.png'));
@@ -144,6 +146,17 @@ function createWindow(){
 		if(await glasstron.getPlatform()._getXWindowManager() !== "GNOME Shell") return;
 		win.blurGnomeSigma = res;
 	});
+
+	electron.ipcMain.on("show-context-menu", (e, res) => {
+		const template = [
+			{
+			  label: 'Remove Repo',
+			  click: () => { e.sender.send('removeRepo', res) }
+			}
+		  ]
+		  const menu = electron.Menu.buildFromTemplate(template)
+		  menu.popup(electron.BrowserWindow.fromWebContents(e.sender))
+	})
 
 	return win;
 }

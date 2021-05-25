@@ -1,5 +1,4 @@
 :root {
-    --background-btns-hover: #8d919621;
     --background-btns: #454545d1;
     --background-body: #191919d1;
 }
@@ -84,10 +83,6 @@ body {
   transition: 250ms ease;
   color: #fff;
   backdrop-filter: blur(20px);
-}
-
-#searchBox:hover {
-  background-color: var(--background-btns-hover);
 }
 
 #content {

@@ -37,8 +37,15 @@ var about = {
                     hasSubtitle: false,
                     id: "Github",
                     imageName: "github-logo.jpg",
-                    title: "Source Code",
+                    title: "Source Code.",
                     url: "https://github.com/paraskcd1315/Nitroless-Electron-App"
+                }),
+                this.containerMaker({
+                    hasSubtitle: false,
+                    id: "Website",
+                    imageName: "website.png",
+                    title: "Visit us.",
+                    url: "https://nitroless.github.io/"
                 }),
                 this.containerMaker({
                     hasSubtitle: false,
@@ -48,11 +55,18 @@ var about = {
                     url: "https://twitter.com/Nitroless_"
                 }),
                 this.containerMaker({
+                    hasSubtitle: false,
+                    id: "Twitter",
+                    imageName: "discord-logo.png",
+                    title: "Chat with us.",
+                    url: "https://discord.com/invite/2h88T99sPa"
+                }),
+                this.containerMaker({
                     hasSubtitle: true,
                     id: "ParasKCD",
                     imageName: "kcd.jpg",
                     title: "Paras KCD",
-                    subtitle: "Website | Electron App",
+                    subtitle: "Website | Windows App",
                     url: "https://twitter.com/ParasKCD"
                 }),
                 this.containerMaker({

@@ -1,5 +1,6 @@
 var home = {
     repoEmotes: [],
+    mostUsedEmotes: [],
     loadEmotes: async function(api_uri) {
         try {
             const resp = await fetch(`${api_uri}index.json`);
@@ -22,7 +23,7 @@ var home = {
         const htmlContainer = domMaker.init({
             type: "div",
             id: repo.id + "SidebarBtn",
-            className: "sidebar-btn",
+            className: "sidebar-btn repoList",
             innerHTML: `
             <div class="sidebar-btn-icon" style="background-image: url('${repo.api_uri}RepoImage.png')"></div>
             <div class="sidebar-btn-title">${repo.name}</div>
@@ -65,7 +66,6 @@ var home = {
                         </div>
                         <div id="${repo.id}Chevron" class="mi mi-ChevronDown"></div>
                     </div>
-                    <div id="${repo.id}" class="menuButton mi mi-ButtonMenu"></div>
                 </div>
                 <div id="${repo.id}Emotes" class="repoEmotes">
                     ${htmlString}
@@ -89,6 +89,42 @@ var home = {
                 }
             }
         });
+        eventHandler.addEvent(htmlContainer, {
+            event: "contextmenu",
+            label: "repoHeaderEventsCM",
+            callback: (e) => {
+                if(e.target.classList.contains("repoDetail")) {
+                    e.preventDefault();
+                    let id = e.target.id;
+                    if(!e.target.id) {
+                        id = e.target.parentElement.id;
+                    } else if(!e.target.parentElement.id) {
+                        id = e.target.parentElement.parentElement.id;
+                    } else {
+                        id = e.target.parentElement.parentElement.parentElement.id;
+                    }
+                    electron.ipcRenderer.send("show-context-menu", id);
+                }
+            }
+        });
+        electron.ipcRenderer.once('removeRepo', (e, repoID) => {
+            let obj = home.repoEmotes.filter((obj) => {
+                return obj.id === repoID;
+            });
+            let r = confirm("Delete Repo: " + obj[0].name + "?");
+            if (r == true) {
+                let uri = obj[0].api_uri;
+                localstore.removeRepo("addedRepos", uri);
+                alert("Repo Deleted!");
+                eventHandler.removeAllEvents();
+                nitrolessEvents.init();
+                home.init();
+            } else {
+                eventHandler.removeAllEvents();
+                nitrolessEvents.init();
+                home.init();
+            }
+        })
         return htmlContainer;
     },
     copySuccess: function(e) {
@@ -96,9 +132,47 @@ var home = {
         setTimeout(() => {
             document.getElementById("copyFloat").classList.remove("show");
         }, 1000);
+        if(localstore["mostUsedEmotes"] && localstore["mostUsedEmotes"].some((obj) => obj === e.text)) {
+            localstore.moveValueToFirstIndex("mostUsedEmotes", e.text);
+        } else {
+            localstore.addArrayValue("mostUsedEmotes", e.text);
+        }
+        home.mostUsedEmotes = [];
+        for(let i = 0; i < localstore["mostUsedEmotes"].length; i++) {
+            home.mostUsedEmotes.push(localstore.mostUsedEmotes[i]);
+        }
+        home.mostUsedEmotesMaker();
     },
     copyFailure: function(e) {
         alert('Couldn\'t copy ' + e.trigger);
+    },
+    mostUsedEmotesMaker: function() {
+        if(localstore["mostUsedEmotes"]) {
+            if(document.getElementById("mostUsedEmotes")) {
+                document.getElementById("mostUsedEmotes").innerHTML = "";
+                if(home.mostUsedEmotes.length) {
+                    const htmlString = home.mostUsedEmotes.map((emote) => {
+                        return `
+                        <div class="emoteContainer" data-clipboard-text="${emote}">
+                            <img src="${emote}" class="emoteImage" />
+                        </div>
+                        `
+                    }).join('');
+                    document.getElementById("mostUsedEmotes").innerHTML = htmlString;
+                } else {
+                    for(let i = 0; i < localstore["mostUsedEmotes"].length; i++) {
+                        home.mostUsedEmotes.push(localstore.mostUsedEmotes[i]);
+                    }
+                    this.mostUsedEmotesMaker();
+                }
+            } else {
+                document.getElementById("sidebarContent").prepend(domMaker.init({
+                    type: "div",
+                    id: "mostUsedEmotes"
+                }));
+                this.mostUsedEmotesMaker();
+            }
+        }
     },
     dynamicSorting: function(property) {
         let sortOrder = 1;
@@ -140,15 +214,29 @@ var home = {
         document.getElementById("sidebarContent").innerHTML = "";
         document.getElementById("addedRepos").innerHTML = "";
         this.repoEmotes = [];
+        this.mostUsedEmotes = [];
+        document.getElementById("sidebarContent").appendChild(domMaker.init({
+            type: "div",
+            id: "loading",
+            innerHTML: `
+                <div class='loadingCircle'></div>
+                <div class='loadingCircle'></div>
+                <div class='loadingCircle'></div>
+                <div class='loadingCircle'></div>
+                <div class='loadingCircle'></div>
+            `
+        }));
         for(let i = 0; i < localstore.addedRepos.length; i++) {
             await home.loadEmotes(localstore.addedRepos[i]);
         }
+        document.getElementById("sidebarContent").removeChild(document.getElementById("loading"));
         for(let i = 0; i < home.repoEmotes.length; i++) {
             document.getElementById("sidebarContent").appendChild(home.displayEmotes(home.repoEmotes[i]));
         }
         for(let i = 0; i < home.repoEmotes.length; i++) {
             document.getElementById("addedRepos").appendChild(home.displaySidebarRepo(home.repoEmotes[i]));
         }
+        this.mostUsedEmotesMaker();
         FluentRevealEffect.applyEffect(".repoDetail", {
             clickEffect: true,
             lightColor: "rgba(255,255,255,0.2)",

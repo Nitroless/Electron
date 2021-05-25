@@ -10,13 +10,15 @@ var nitrolessEvents = {
             label: "sidebarEvents",
             callback: (e) => {
                 if(e.target.classList.contains("sidebar-btn")) {
-                    let sidebarBtns = document.getElementsByClassName("sidebar-btn");
-                    for(let i = 0; i < sidebarBtns.length; i++) {
-                        if(sidebarBtns[i].classList.contains("active")) {
-                            sidebarBtns[i].classList.remove("active");
+                    if(!e.target.classList.contains("repoList") && e.target.id !== "hamburgerMenu") {
+                        let sidebarBtns = document.getElementsByClassName("sidebar-btn");
+                        for(let i = 0; i < sidebarBtns.length; i++) {
+                            if(sidebarBtns[i].classList.contains("active")) {
+                                sidebarBtns[i].classList.remove("active");
+                            }
                         }
+                        e.target.classList.add("active");
                     }
-                    e.target.classList.add("active");
                     switch(e.target.id) {
                         case "reloadBtn":
                             eventHandler.removeAllEvents();

@@ -43,7 +43,6 @@ body {
 
 #quitContainer .quitBtns div:hover {
     cursor: pointer;
-    background-color: var(--background-btns-hover);
     transform: scale(1.1);
 }
 
