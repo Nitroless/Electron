@@ -3,28 +3,39 @@ var home = {
     mostUsedEmotes: [],
     loadEmotes: async function(api_uri) {
         try {
-            const resp = await fetch(`${api_uri}index.json`);
-            this.r = await resp.json();
-            let sortedEmotes = this.r.emotes.sort(this.dynamicSorting("name"));
-            let repoId = this.r.name.split(" ").join("");
+            const utf8Decoder = new TextDecoder('utf-8');
+            const resp = await fetch(`${api_uri}index.json`, {
+                headers: {
+                    'Cache-Control': 'no-cache'
+                }
+            });
+            this.r = await resp.body.getReader();
+            let { value: chunk } = await this.r.read();
+            chunk = chunk ? utf8Decoder.decode(chunk) : '';
+            let data = JSON.parse(chunk);
+            let sortedEmotes = data.emotes.sort(this.dynamicSorting("name"));
+            let repoId = data.name.split(" ").join("");
             repoId = repoId.split("'").join("");
             this.repoEmotes.push({
                 "id": repoId,
                 "api_uri": api_uri,
-                "name": this.r.name,
-                "path": this.r.path,
+                "name": data.name,
+                "path": data.path,
                 "emotes": sortedEmotes,
             });
         } catch(err) {
-            console.error(err);
+            console.error(api_uri + " Repo couldn't be loaded because: \n\n Error:" + err);
         }
     },
-    displaySidebarRepo: function(repo) {
+    displaySidebarRepo: function(repo, flag) {
         const htmlContainer = domMaker.init({
             type: "div",
             id: repo.id + "SidebarBtn",
             className: "sidebar-btn repoList",
-            innerHTML: `
+            innerHTML: flag ? `
+            <div class="sidebar-btn-icon mi mi-History"></div>
+            <div class="sidebar-btn-title">${repo.name}</div>
+            ` : `
             <div class="sidebar-btn-icon" style="background-image: url('${repo.api_uri}RepoImage.png')"></div>
             <div class="sidebar-btn-title">${repo.name}</div>
             `
@@ -46,6 +57,7 @@ var home = {
         const htmlString = repo.emotes.map((emote) => {
             return `
             <div id="${emote.name}${emote.type}" class="emoteContainer" data-clipboard-text="${repo.api_uri}${repo.path}/${emote.name}${emote.type}">
+                <div class="hover">${emote.name}</div>
                 <img src="${repo.api_uri}${repo.path}/${emote.name}${emote.type}" id="${emote.name}${emote.type}Img" class="emoteImage" name="${emote.name}" />
             </div>
             `
@@ -136,12 +148,15 @@ var home = {
             localstore.moveValueToFirstIndex("mostUsedEmotes", e.text);
         } else {
             localstore.addArrayValue("mostUsedEmotes", e.text);
+            localstore.moveValueToFirstIndex("mostUsedEmotes", e.text);
         }
         home.mostUsedEmotes = [];
-        for(let i = 0; i < localstore["mostUsedEmotes"].length; i++) {
-            home.mostUsedEmotes.push(localstore.mostUsedEmotes[i]);
+        if(!document.getElementById("sidebarContent").classList.contains("searchContent")) {
+            for(let i = 0; i < localstore["mostUsedEmotes"].length; i++) {
+                home.mostUsedEmotes.push(localstore.mostUsedEmotes[i]);
+            }
+            home.mostUsedEmotesMaker();
         }
-        home.mostUsedEmotesMaker();
     },
     copyFailure: function(e) {
         alert('Couldn\'t copy ' + e.trigger);
@@ -159,6 +174,12 @@ var home = {
                         `
                     }).join('');
                     document.getElementById("mostUsedEmotes").innerHTML = htmlString;
+                    if(!document.getElementById("mostUsedEmotesSidebarBtn")) {
+                        document.getElementById("addedRepos").prepend(home.displaySidebarRepo({
+                            id: "mostUsedEmotes",
+                            name: "History"
+                        }, true));
+                    }
                 } else {
                     for(let i = 0; i < localstore["mostUsedEmotes"].length; i++) {
                         home.mostUsedEmotes.push(localstore.mostUsedEmotes[i]);

@@ -1,3 +1,12 @@
+#border {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 99.4%;
+  height: 99.5%;
+  border: 1px solid #fff1;
+}
+
 #content #sidebar {
   position: fixed;
   top: 0;
@@ -14,8 +23,10 @@
   width: 180px;
   box-shadow: 10px 0px 20px #00000042, 2px 0px 5px #00000014;
   background-color: #2a2a2bcf;
-  backdrop-filter: blur(10px);
+  height: 99.5%;
+  backdrop-filter: blur(20px);
   transition-delay: 500ms;
+  border: 1px solid #fff1;
 }
 
 #sidebar #hamburgerMenu-title {
@@ -30,11 +41,13 @@
   align-items: center;
   padding: 18px;
   transition: 250ms ease;
+  border: 1px solid #fff0;
 }
 
 #content #sidebar .sidebar-btn:hover {
   cursor: pointer;
   transform: scale(1.1);
+  border: 1px solid #fff1;
 }
 
 #content #sidebar .sidebar-btn:active {
@@ -63,12 +76,26 @@
   height: 25px;
 }
 
+#addedRepos .sidebar-btn .sidebar-btn-icon.mi {
+  background-size: unset;
+  width: unset;
+  height: unset;
+  margin-right: 30px;
+}
+
 #sidebar .sidebar-btn.active .sidebar-btn-icon, #sidebar .sidebar-btn.active .sidebar-btn-title  {
   text-shadow: 0 1px 10px #fffd, 0 -1px 10px #fffd;
 }
 
 #sidebar .sidebar-btn .sidebar-btn-title {
   pointer-events: none;
+}
+
+.repoList .sidebar-btn-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100px;
 }
 
 #hamburgerMenu .sidebar-btn-icon span {
@@ -115,6 +142,17 @@
   transition: mask-position 0.3s, -webkit-mask-position 0.3s;
 }
 
+#content .searchContent {
+  padding-top: 50px;
+  padding-left: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 18px;
+  transition: 250ms ease;
+  height: auto!important;
+  width: calc(90% - 50px)!important;
+}
+
 #content #sidebarContent:hover {
   transition-delay: 500ms;
   mask-position: left top;
@@ -138,10 +176,12 @@
   transition: 250ms ease;
   padding: 10px;
   border-radius: 10px;
+  border: 1px solid #fff0;
 }
 
 #sidebarContent .repoContainer .repoDetail:hover {
   cursor: pointer;
+  border: 1px solid #fff1;
 }
 
 .repoContainer .repoDetail .menuButton {
@@ -192,6 +232,10 @@
   transform: rotate(-90deg);
 }
 
+#sidebarContent .repoContainer .repoEmotes[data-collapsed="true"] {
+  overflow: hidden;
+} 
+
 #sidebarContent .repoContainer .repoEmotes, #mostUsedEmotes {
   margin-top: 10px;
   display: flex;
@@ -199,7 +243,6 @@
   margin-left: 18px;
   transition: 250ms ease;
   height:auto;
-  overflow: hidden;
 }
 
 .emoteContainer {
@@ -211,6 +254,26 @@
 .emoteContainer:hover {
   transform: scale(1.2);
   cursor: pointer;
+}
+
+.emoteContainer .hover {
+  position: absolute;
+  background-color: var(--background-btns);
+  opacity: 0;
+  margin-top: -40px;
+  padding: 10px;
+  text-align: center;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  font-size: 10px;
+  pointer-events: none;
+}
+
+.emoteContainer:hover .hover {
+  opacity: 1;
 }
 
 .emoteContainer:active {
