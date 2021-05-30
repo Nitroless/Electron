@@ -26,7 +26,7 @@
     font-family: UniSans;
     font-size: 25px;
     margin-left: auto;
-    margin-right: auto;
+    margin-right: 39px;
 }
   
 #windowbar .windowbar-controls {
@@ -44,4 +44,17 @@
   
 #windowbar .windowbar-controls .windowbar-maximize, #windowbar .windowbar-controls .windowbar-close {
     display: none;
+}
+
+.windowbar.wb-win .windowbar-addRepo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 29px;
+    font-size: 12px;
+}
+
+.windowbar.wb-win .windowbar-addRepo:hover {
+    background-color: rgba(127,127,127,0.2);
 }

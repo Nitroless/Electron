@@ -2,6 +2,30 @@ var nitrolessEvents = {
     searchFlag: false,
     sidebar: document.getElementById("sidebar"),
     searchbar: document.getElementById("searchInput"),
+    addRepo: document.getElementById("addRepo"),
+    loadAddRepoEvent: function() {
+        eventHandler.addEvent(this.addRepo, {
+            event: "click",
+            label: "addRepoEvent",
+            callback: async function(e) {
+                let addRepo = prompt("Please enter the Repo's URL:", "https://");
+                if(addRepo != null && addRepo !== "") {
+                    try {
+                        if(!addRepo.endsWith("/")) {
+                            addRepo = addRepo + "/";
+                        }
+                        const response = await fetch(`${addRepo}index.json`);
+                        localstore.addRepo("addedRepos", addRepo);
+                        eventHandler.removeAllEvents();
+                        nitrolessEvents.init();
+                        home.init();
+                    } catch(e) {
+                        alert("oof, Repo couldn't be Added, please contact the Repo Maintainer and show them this error. \n\n" + e);
+                    }
+                }
+            }
+        });
+    },
     loadSearchEvents: function() {
         eventHandler.addEvent(this.searchbar, {
             event: "search",
@@ -101,6 +125,7 @@ var nitrolessEvents = {
         })
     },
     init: function() {
+        this.loadAddRepoEvent();
         this.loadSidebarEvents();
         this.loadSearchEvents();
     }
