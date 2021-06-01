@@ -32,55 +32,57 @@ var nitrolessEvents = {
                 setTimeout(() => {
                     addRepoWindow.classList.remove("closed");
                 }, 10);
-                document.body.appendChild(addRepoWindow);
-                eventHandler.addEvent(document.getElementsByClassName("mi-ChromeClose")[0], {
-                    event: "click",
-                    label: "removeAddRepoWindow",
-                    callback: function(e) {
-                        document.getElementById("addRepoWindow").classList.add("closed");
-                        setTimeout(() => document.body.removeChild(document.getElementById("addRepoWindow")), 250);
-                        eventHandler.removeAllEvents();
-                        nitrolessEvents.init();
-                        home.init();
-                    }
-                });
-                eventHandler.addEvent(document.getElementsByClassName("promptButtons")[0], {
-                    event: "click",
-                    label: "addRepoButtonsEvents",
-                    callback: async function(e) {
-                        if(e.target.id === "okButton") {
-                            addRepo = document.getElementById("addRepoURL").value;
-                            if(addRepo !== null && addRepo !== "https://") {
-                                try {
-                                    if(!addRepo.endsWith("/")) {
-                                        addRepo = addRepo + "/";
+                if(!document.getElementById("addRepoWindow")) {
+                    document.body.appendChild(addRepoWindow);
+                    eventHandler.addEvent(document.getElementsByClassName("mi-ChromeClose")[0], {
+                        event: "click",
+                        label: "removeAddRepoWindow",
+                        callback: function(e) {
+                            document.getElementById("addRepoWindow").classList.add("closed");
+                            setTimeout(() => document.body.removeChild(document.getElementById("addRepoWindow")), 250);
+                            eventHandler.removeAllEvents();
+                            nitrolessEvents.init();
+                            home.init();
+                        }
+                    });
+                    eventHandler.addEvent(document.getElementsByClassName("promptButtons")[0], {
+                        event: "click",
+                        label: "addRepoButtonsEvents",
+                        callback: async function(e) {
+                            if(e.target.id === "okButton") {
+                                addRepo = document.getElementById("addRepoURL").value;
+                                if(addRepo !== null && addRepo !== "https://") {
+                                    try {
+                                        if(!addRepo.endsWith("/")) {
+                                            addRepo = addRepo + "/";
+                                        }
+                                        const response = await fetch(`${addRepo}index.json`);
+                                        localstore.addRepo("addedRepos", addRepo);
+                                    } catch(e) {
+                                        alert("oof, Repo couldn't be Added, please contact the Repo Maintainer and show them this error. \n\n" + e);
                                     }
-                                    const response = await fetch(`${addRepo}index.json`);
-                                    localstore.addRepo("addedRepos", addRepo);
-                                    eventHandler.removeAllEvents();
-                                    home.init();
-                                } catch(e) {
-                                    alert("oof, Repo couldn't be Added, please contact the Repo Maintainer and show them this error. \n\n" + e);
                                 }
                             }
+                            document.getElementById("addRepoWindow").classList.add("closed");
+                            setTimeout(() => {
+                                document.body.removeChild(document.getElementById("addRepoWindow"));
+                                eventHandler.removeAllEvents();
+                                nitrolessEvents.init();
+                                home.init();
+                            }, 250);
                         }
-                        document.getElementById("addRepoWindow").classList.add("closed");
-                        setTimeout(() => {
-                            document.body.removeChild(document.getElementById("addRepoWindow"));
-                            nitrolessEvents.init();
-                        }, 250);
-                    }
-                });
-                FluentRevealEffect.applyEffect(".urlInput", {
-                    clickEffect: true,
-                    lightColor: "rgba(255,255,255,0.2)",
-                    gradientSize: 200
-                });
-                FluentRevealEffect.applyEffect(".promptButton", {
-                    clickEffect: true,
-                    lightColor: "rgba(255,255,255,0.2)",
-                    gradientSize: 150
-                });
+                    });
+                    FluentRevealEffect.applyEffect(".urlInput", {
+                        clickEffect: true,
+                        lightColor: "rgba(255,255,255,0.2)",
+                        gradientSize: 200
+                    });
+                    FluentRevealEffect.applyEffect(".promptButton", {
+                        clickEffect: true,
+                        lightColor: "rgba(255,255,255,0.2)",
+                        gradientSize: 150
+                    });
+                }
             }    
         });
     },
