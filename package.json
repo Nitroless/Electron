@@ -1,7 +1,7 @@
 {
   "name": "io.github.nitroless",
   "productName": "Nitroless",
-  "version": "1.0.0-alpha3",
+  "version": "1.0.0-alpha4",
   "description": "A Project where you can use any custom emoji on Discord servers without Nitro! Just tap the emoji and paste it in the discord chat.",
   "main": "src/index.js",
   "scripts": {

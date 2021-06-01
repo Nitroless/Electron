@@ -123,20 +123,66 @@ var home = {
             let obj = home.repoEmotes.filter((obj) => {
                 return obj.id === repoID;
             });
-            let r = confirm("Delete Repo: " + obj[0].name + "?");
-            if (r == true) {
-                let uri = obj[0].api_uri;
-                localstore.removeRepo("addedRepos", uri);
-                alert("Repo Deleted!");
-                eventHandler.removeAllEvents();
-                nitrolessEvents.init();
-                home.init();
-            } else {
-                eventHandler.removeAllEvents();
-                nitrolessEvents.init();
-                home.init();
+            let removeRepoWindow = domMaker.init({
+                type: "div",
+                id: "removeRepoWindow",
+                className: "promptWindows closed",
+                innerHTML: `
+                <div id="titlebar">
+                    <div class="title">Remove Repo</div>
+                    <div class="mi mi-ChromeClose"></div>
+                </div>
+                <div class="content">
+                    <div class="label">Remove Repo ${obj[0].name}?</div>
+                    <div class="promptButtons">
+                        <div id="okButton" class="promptButton">Ok</div>
+                        <div id="cancelButton" class="promptButton">Cancel</div>
+                    </div>
+                </div>
+                `
+            });
+            setTimeout(() => {
+                removeRepoWindow.classList.remove("closed");
+            }, 10);
+            if(!document.getElementById("removeRepoWindow")) {
+                document.body.appendChild(removeRepoWindow);
+                eventHandler.addEvent(document.getElementsByClassName("mi-ChromeClose")[0], {
+                    event: "click",
+                    label: "removeRemoveRepoWindow",
+                    callback: function(e) {
+                        document.getElementById("removeRepoWindow").classList.add("closed");
+                        setTimeout(() => document.body.removeChild(document.getElementById("removeRepoWindow")), 250);
+                        eventHandler.removeAllEvents();
+                        nitrolessEvents.init();
+                        home.init();
+                    }
+                });
+                eventHandler.addEvent(document.getElementsByClassName("promptButtons")[0], {
+                    event: "click",
+                    label: "addRepoButtonsEvents",
+                    callback: function(e) {
+                        if(e.target.id === "okButton") {
+                            let uri = obj[0].api_uri;
+                            localstore.removeRepo("addedRepos", uri);
+                            eventHandler.removeAllEvents();
+                            nitrolessEvents.init();
+                        }
+                        document.getElementById("removeRepoWindow").classList.add("closed");
+                        setTimeout(() => {
+                            document.body.removeChild(document.getElementById("removeRepoWindow"))
+                            eventHandler.removeAllEvents();
+                            nitrolessEvents.init();
+                            home.init();
+                        }, 250);
+                    }
+                });
+                FluentRevealEffect.applyEffect(".promptButton", {
+                    clickEffect: true,
+                    lightColor: "rgba(255,255,255,0.2)",
+                    gradientSize: 150
+                });
             }
-        })
+        });
         return htmlContainer;
     },
     copySuccess: function(e) {

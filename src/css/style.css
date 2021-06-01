@@ -7,6 +7,94 @@
   border: 1px solid #fff1;
 }
 
+.promptWindows {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  z-index: 99;
+  transition: 250ms ease;
+  background-color: #2a2b2ccf;
+  box-shadow: 10px 0px 20px #00000042, 2px 0px 5px #00000014;
+  backdrop-filter: blur(10px);
+  border: 1px solid #fff1;
+  width: 80%;
+}
+
+.promptWindows.closed {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.8);
+}
+
+.promptWindows #titlebar {
+  margin: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.promptWindows #titlebar .mi {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 29px;
+  font-size: 12px;
+}
+
+.promptWindows #titlebar .mi:hover {
+  background-color: rgba(127,127,127,0.2);
+}
+
+.promptWindows .content {
+  margin: 20px;
+}
+
+.promptWindows .content .label {
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.promptWindows .content .urlInput {
+  width: 95%;
+  background-color: var(--background-btns);
+  padding: 5px;
+  border-radius: 10px;
+  box-shadow: 0px 10px 20px #00000042, 0px 2px 5px #00000014;
+  transition: 250ms ease;
+  color: #fff;
+}
+
+.content .urlInput .inputTextField {
+  width: 90%;
+}
+
+#addRepoWindow .content .promptButtons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.content .promptButtons .promptButton {
+  transition: 250ms ease;
+  margin-left: 10px;
+  margin-right: 5px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--background-btns);
+  width: 70px;
+  height: 35px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px #0004;
+}
+
+.content .promptButtons .promptButton:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
 #content #sidebar {
   position: fixed;
   top: 0;
