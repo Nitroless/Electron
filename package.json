@@ -1,78 +1,88 @@
 {
-  "name": "io.github.nitroless",
-  "productName": "Nitroless",
-  "version": "1.0.0-alpha4",
-  "description": "A Project where you can use any custom emoji on Discord servers without Nitro! Just tap the emoji and paste it in the discord chat.",
-  "main": "src/index.js",
-  "scripts": {
-    "start": "electron-forge start",
-    "package": "electron-forge package",
-    "make": "electron-forge make",
-    "publish": "electron-forge publish",
-    "lint": "echo \"No linting configured\"",
-    "build-installer": "electron-builder"
-  },
-  "build": {
-    "appId": "io.github.nitroless",
-    "win": {
-      "target": [
-        "nsis"
-      ],
-      "icon": "src/icon.ico"
-    },
-    "nsis": {
-      "installerIcon": "src/icon.ico",
-      "uninstallerIcon": "src/icon.ico",
-      "uninstallDisplayName": "Nitroless",
-      "oneClick": false,
-      "allowToChangeInstallationDirectory": true
-    }
-  },
-  "keywords": [],
-  "author": "Paras Khanchandani",
-  "license": "",
-  "config": {
-    "forge": {
-      "packagerConfig": {},
-      "makers": [
-        {
-          "name": "@electron-forge/maker-squirrel",
-          "config": {
-            "name": "nitroless"
-          }
-        },
-        {
-          "name": "@electron-forge/maker-zip",
-          "platforms": [
-            "darwin"
-          ]
-        },
-        {
-          "name": "@electron-forge/maker-deb",
-          "config": {}
-        },
-        {
-          "name": "@electron-forge/maker-rpm",
-          "config": {}
-        }
-      ]
-    }
-  },
-  "dependencies": {
-    "clipboard": "^2.0.8",
-    "electron-squirrel-startup": "^1.0.0",
-    "electron-tray-window": "^1.2.5",
-    "fluent-reveal-effect": "^2.0.8",
-    "glasstron": "0.0.7",
-    "windowbar": "^1.7.4"
-  },
-  "devDependencies": {
-    "@electron-forge/cli": "^6.0.0-beta.55",
-    "@electron-forge/maker-deb": "^6.0.0-beta.55",
-    "@electron-forge/maker-rpm": "^6.0.0-beta.55",
-    "@electron-forge/maker-squirrel": "^6.0.0-beta.55",
-    "@electron-forge/maker-zip": "^6.0.0-beta.55",
-    "electron": "12.0.9",
-    "electron-builder": "^22.10.5"
-  }
+	"name": "io.github.nitroless",
+	"productName": "Nitroless",
+	"version": "1.0.0-alpha4",
+	"description": "A Project where you can use any custom emoji on Discord servers without Nitro! Just tap the emoji and paste it in the discord chat.",
+	"main": "src/index.js",
+	"scripts": {
+		"start": "electron-forge start",
+		"package": "electron-forge package",
+		"make": "electron-forge make",
+		"publish": "electron-forge publish",
+		"lint": "echo \"No linting configured\"",
+		"build-installer": "electron-builder"
+	},
+	"build": {
+		"appId": "io.github.nitroless",
+		"win": {
+			"target": [
+				"nsis"
+			],
+			"icon": "src/icon.ico"
+		},
+		"nsis": {
+			"installerIcon": "src/icon.ico",
+			"uninstallerIcon": "src/icon.ico",
+			"uninstallDisplayName": "Nitroless",
+			"oneClick": false,
+			"allowToChangeInstallationDirectory": true
+		}
+	},
+	"keywords": [],
+	"author": "Paras Khanchandani",
+	"license": "",
+	"config": {
+		"forge": {
+			"packagerConfig": {
+				"icon": "src/icon.icns"
+			},
+			"makers": [
+				{
+					"name": "@electron-forge/maker-squirrel",
+					"config": {
+						"name": "nitroless"
+					}
+				},
+				{
+					"name": "@electron-forge/maker-zip",
+					"platforms": [
+						"darwin"
+					]
+				},
+				{
+					"name": "@electron-forge/maker-dmg",
+					"config": {
+						"format": "ULFO"
+					}
+				},
+				{
+					"name": "@electron-forge/maker-deb",
+					"config": {}
+				},
+				{
+					"name": "@electron-forge/maker-rpm",
+					"config": {}
+				}
+			]
+		}
+	},
+	"dependencies": {
+		"@electron-forge/maker-dmg": "^6.0.0-beta.57",
+		"clipboard": "^2.0.8",
+		"electron-squirrel-startup": "^1.0.0",
+		"electron-tray-window": "^1.2.5",
+		"fluent-reveal-effect": "^2.0.8",
+		"glasstron": "0.0.7",
+		"windowbar": "^1.7.4",
+		"yarn": "^1.22.10"
+	},
+	"devDependencies": {
+		"@electron-forge/cli": "^6.0.0-beta.55",
+		"@electron-forge/maker-deb": "^6.0.0-beta.55",
+		"@electron-forge/maker-rpm": "^6.0.0-beta.55",
+		"@electron-forge/maker-squirrel": "^6.0.0-beta.55",
+		"@electron-forge/maker-zip": "^6.0.0-beta.55",
+		"electron": "12.0.9",
+		"electron-builder": "^22.10.5"
+	}
 }
